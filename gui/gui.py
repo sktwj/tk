@@ -6,7 +6,7 @@ from control import MainControl
 
 class MainApp(QtGui.QApplication):
     def __init__(self, argv):
-        QtGui.QApplication.__init(self, argv)
+        QtGui.QApplication.__init__(self, argv)
 
         self.control = MainControl()
 

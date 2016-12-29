@@ -3,7 +3,7 @@
 import os
 from PyQt4 import QtCore
 
-from squery import socktQuery
+from squery import socketQuery
 
 
 
@@ -25,11 +25,17 @@ class MainControl(QtCore.QThread):
                     try:
                         length = ''
                         while True:
+                            '''
+                            recv packet length
+                            '''
                             data = self.sock.sd.recv(1)
                             if (data == "\n"):
                                 break
                             length = length + data
                         len_data = 0
+                        '''
+                        recv packet data by length
+                        '''
                         while (len_data != int(length)):
                             data = self.sock.sd.recv(int(length) - len(data))
                             len_data += len(data)
@@ -43,6 +49,22 @@ class MainControl(QtCore.QThread):
 
     def process(self, data):
         self.log.info("processing %s" % data)
+
+    def run(self):
+        i = 0
+        while True:
+            try:
+                i += 1
+                self.sock.setup()
+                ## test if sock server is ok...
+                break
+            except:
+                if i < 10:
+                    time.sleep(2)
+                    continue
+                else:
+                    os.exit(-1)
+        self.rev_data()
 
 #
 if __name__ == "__main__":
