@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
 import os
+from PyQt4 import QtCore
 
 from squery import socktQuery
-
 
 
 
@@ -16,7 +16,6 @@ class MainControl(QtCore.QThread):
     def init_gui(self, params=dict()):
         self.emit(QtCore.SIGNAL("exec_cmd(QString)"), "self.init_gui("+str(param)+")")
 
-    
     def rev_data(self):
         while True:
             try:
@@ -37,9 +36,14 @@ class MainControl(QtCore.QThread):
                             full_data = full_data + data
                         if full_data:
                             self.process(full_data)
+                    except Exception, ex:
+                        self.log.error("recv_data error when recv %s" % str(ex))
             except Exception, ex:
                 self.log.error("rev_data error when select data %s" % str(ex))
 
-
     def process(self, data):
         self.log.info("processing %s" % data)
+
+#
+if __name__ == "__main__":
+    pass
