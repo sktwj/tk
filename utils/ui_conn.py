@@ -69,6 +69,12 @@ class UiSocket(object):
                     msg = self._parse_tcp_stream(data)
                     if msg: return msg
 
+
+    def send_msg(self, message):
+        data = message.dumps()
+        msg = "%s\n%s" % (len(data), data)
+        self.sock.sendall(msg)
+
     def _parse_tcp_stream(self, data=""):
         self.buffer = ""
         self.msg += data
