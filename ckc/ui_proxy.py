@@ -31,7 +31,7 @@ class UiProxy(object):
 
         for t in (self._recv, self._send):
             ti = Thread(target = t)
-            ti.setDaemon(true)
+            ti.setDaemon(True)
             ti.start()
             self.running_thread.append(ti)
 

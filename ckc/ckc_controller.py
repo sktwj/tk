@@ -5,6 +5,7 @@ import traceback
 import threading
 from Queue import Queue
 from ui_proxy import UiProxy
+from ckc_config import KIOSK_FORMS, INIT_FORM
 from tkiosk.utils.util import init_log
 
 
@@ -23,7 +24,7 @@ class CKCController(object):
 
     def add_form_list(self, forms):
         self.log.info("initialize all forms.")
-        for i in forms:
+        for form in forms:
             cmd = "from gui%(form)s import %(form)s" % {"form": form}
             self.log.info("add form: %s" % cmd)
             exec(cmd)
